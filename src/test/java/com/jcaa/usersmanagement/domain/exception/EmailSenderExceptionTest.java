@@ -14,24 +14,20 @@ import org.junit.jupiter.api.Test;
 @DisplayName("EmailSenderException")
 class EmailSenderExceptionTest {
 
-  // ── becauseSmtpFailed()
-
   @Test
-  @DisplayName("becauseSmtpFailed() debe formatear el mensaje incluyendo el email y el error SMTP")
-  void shouldFormatMessageWithEmailAndSmtpError() {
-    // Arrange
+  @DisplayName("becauseApiFailed() debe formatear el mensaje incluyendo el email y el detalle")
+  void shouldFormatMessageWithEmailAndApiDetail() {
     final String destinationEmail = "user@example.com";
-    final String smtpError = "Connection refused";
+    final String detail = "HTTP 401";
 
-    // Act
     final String message =
-        EmailSenderException.becauseSmtpFailed(destinationEmail, smtpError).getMessage();
+        EmailSenderException.becauseApiFailed(destinationEmail, detail).getMessage();
 
-    // Assert
     assertAll(
-        "becauseSmtpFailed",
+        "becauseApiFailed",
         () -> assertTrue(message.contains(destinationEmail), "el mensaje debe contener el email"),
-        () -> assertTrue(message.contains(smtpError), "el mensaje debe contener el error SMTP"));
+        () -> assertTrue(message.contains(detail), "el mensaje debe contener el detalle"),
+        () -> assertTrue(message.contains("Brevo"), "el mensaje debe mencionar Brevo"));
   }
 
   // ── becauseSendFailed()

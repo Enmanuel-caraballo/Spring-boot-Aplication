@@ -1,0 +1,51 @@
+### Health
+GET {{baseUrl}}/health
+
+### Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "Admin1234!"
+}
+
+> {% client.global.set("token", response.body.accessToken); %}
+
+### Listar usuarios
+GET {{baseUrl}}/api/users
+Authorization: Bearer {{token}}
+
+### Crear usuario
+POST {{baseUrl}}/api/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "11111111-1111-1111-1111-111111111111",
+  "name": "Usuario Prueba",
+  "email": "usuario.prueba@example.com",
+  "password": "Prueba1234!",
+  "role": "MEMBER"
+}
+
+### Obtener usuario por id
+GET {{baseUrl}}/api/users/11111111-1111-1111-1111-111111111111
+Authorization: Bearer {{token}}
+
+### Actualizar usuario
+PUT {{baseUrl}}/api/users/11111111-1111-1111-1111-111111111111
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Usuario Prueba",
+  "email": "usuario.prueba@example.com",
+  "password": "Prueba1234!",
+  "role": "MEMBER",
+  "status": "ACTIVE"
+}
+
+### Eliminar usuario
+DELETE {{baseUrl}}/api/users/11111111-1111-1111-1111-111111111111
+Authorization: Bearer {{token}}
